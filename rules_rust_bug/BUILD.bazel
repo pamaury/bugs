@@ -1,0 +1,28 @@
+# Copyright lowRISC contributors.
+# Licensed under the Apache License, Version 2.0, see LICENSE for details.
+# SPDX-License-Identifier: Apache-2.0
+load("@rules_rust//crate_universe:defs.bzl", "crate", "crates_vendor")
+
+crates_vendor(
+    name = "crate_index",
+    cargo_lockfile = "//:Cargo.lock",
+    manifests = ["//:Cargo.toml"],
+    # uncomment the following and run
+    #   bazelisk run //:crate_index -- --repin
+    # to workaround the problem
+    # annotations = {
+    #     # This is a workaround: presumably because of a rules_rust bug, indexmap 1.9.3 depends
+    #     # on hashbrown 0.12 with no defaults and the `raw` feature but rules_rust does not add this
+    #     # feature to crate which prevents the crate from compiling.
+    #     "hashbrown": [crate.annotation(
+    #         crate_features = ["raw"],
+    #     )],
+    #     # Same problem with `deranged` (pulled by `time`).
+    #     "deranged": [crate.annotation(
+    #         crate_features = ["powerfmt"],
+    #     )],
+    # },
+    mode = "remote",
+    tags = ["manual"],
+    vendor_path = "crates",
+)

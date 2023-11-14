@@ -1,0 +1,10 @@
+[package]
+name = "cargo_raze_deps"
+version = "0.0.0"
+publish = false
+
+[lib]
+path = "empty_file_to_appease_cargo.rs"
+
+[dependencies]
+serde_with = "3.4.0"
